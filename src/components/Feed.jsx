@@ -3,13 +3,13 @@ import "./Feed.css";
 import Post from "./Post"
 import TweetBox from "./TweetBox";
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore'
 
 function Feed() {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    getPosts(posts)
+  useEffect((posts) => {
+      getPosts(posts);
   }, []);
 
   function getPosts() {
@@ -24,6 +24,7 @@ function Feed() {
       })
       .catch(error => console.log(error.message))
   }
+  getPosts()
 
   return (
     <div className='feed'>
@@ -36,16 +37,14 @@ function Feed() {
       {posts.map(post => (
         <Post
           key={post.id}
-          displayName={post.displayName}
-          username={post.username}
-          verified={post.verified}
-          text={post.text}
-          avatar={post.avatar}
-          image={post.image}
+          displayName={post.data.displayName}
+          username={post.data.username}
+          verified={post.data.verified}
+          text={post.data.text}
+          avatar={post.data.avatar}
+          image={post.data.image}
         />
       ))}
-
-
     </div>
   );
 }
